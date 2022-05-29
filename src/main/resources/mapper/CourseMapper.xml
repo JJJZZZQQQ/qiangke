@@ -23,4 +23,9 @@
         order by course_id desc
         limit 1
     </select>
+
+    <update id="updateSurplusNumber" >
+        update course set surplus_number = surplus_number - 1
+        where course_id = #{courseId} AND surplus_number > 0
+    </update>
 </mapper>

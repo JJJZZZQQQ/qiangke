@@ -14,4 +14,6 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<Long> getCourseIdListByMqFail(@Param("beginId") Long beginId , @Param("size") Integer size);
 
     Long getMaxId();
+
+    Integer updateSurplusNumber(@Param("courseId")Long courseId);
 }
