@@ -5,9 +5,9 @@ server:
     context-path: /
 spring:
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:mysql://49.123.0.26:3478/rush_class?serverTimezone=Asia/Shanghai&userSSL=true&useUnicode=true&characterEncoding=UTF8
+    username: rush_class
+    password: pTRwLs243JaBmXCx
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     host: 127.0.0.1
@@ -15,7 +15,7 @@ spring:
     password:
     database: 0
   kafka:
-    bootstrap-servers:
+    bootstrap-servers: 49.123.0.28:9092
     producer:
       # 发生错误后，消息重发的次数。
       retries: 1
