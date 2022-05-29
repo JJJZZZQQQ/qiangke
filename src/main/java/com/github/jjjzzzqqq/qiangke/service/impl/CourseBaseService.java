@@ -20,6 +20,9 @@ import javax.annotation.Resource;
 public abstract class CourseBaseService extends ServiceImpl<CourseMapper, Course> implements ICourseService {
 
     @Resource
+    protected CourseMapper courseMapper;
+
+    @Resource
     private EnrollMapper enrollMapper;
 
     @Resource
