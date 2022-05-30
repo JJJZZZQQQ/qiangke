@@ -1,6 +1,8 @@
 package com.github.jjjzzzqqq.qiangke.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.jjjzzzqqq.qiangke.common.RedisKeyConstant;
+import com.github.jjjzzzqqq.qiangke.entity.Course;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,12 @@ public class CourseServiceLockImpl extends CourseBaseService {
 
 
         //3. 判断已用库存是否小于总库存
-        Integer totalCount = courseMapper.selectById(courseId).getNumber();
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        Course course = courseMapper.selectOne(queryWrapper.eq("course_id", courseId));
+        if(course == null) {
+            return false;
+        }
+        Integer totalCount = course.getNumber();
         if (usedCount >= totalCount) {
             redisTemplate.delete(lockKey);
             return false;

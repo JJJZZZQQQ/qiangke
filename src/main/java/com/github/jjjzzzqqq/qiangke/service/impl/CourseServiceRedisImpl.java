@@ -1,6 +1,8 @@
 package com.github.jjjzzzqqq.qiangke.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.jjjzzzqqq.qiangke.common.RedisKeyConstant;
+import com.github.jjjzzzqqq.qiangke.entity.Course;
 import com.github.jjjzzzqqq.qiangke.mapper.CourseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +55,12 @@ public class CourseServiceRedisImpl extends CourseBaseService {
         }
 
         //3.超出库存判断，进行恢复库存
-        Integer totalCount = courseMapper.selectById(courseId).getNumber();
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        Course course = courseMapper.selectOne(queryWrapper.eq("course_id", courseId));
+        if(course == null) {
+            return false;
+        }
+        Integer totalCount = course.getNumber();
         if (usedCount > totalCount) {
             redisTemplate.opsForValue().decrement(redisKey);
             return false;
