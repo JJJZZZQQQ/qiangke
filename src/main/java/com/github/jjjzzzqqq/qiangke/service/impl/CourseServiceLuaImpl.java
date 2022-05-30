@@ -42,7 +42,7 @@ public class CourseServiceLuaImpl extends CourseBaseService {
     @Override
     public boolean snatch(Long courseId) {
         String script =
-                "if (redis.call('get' ,KEYS[1]) >= tonumber(ARGV[1])) then " +
+                "if (tonumber(redis.call('get' ,KEYS[1])) >= tonumber(ARGV[1])) then " +
                 "return false ; " +
                 "end; " +
                 "redis.call('incrby' , KEYS[1], 1); "+
